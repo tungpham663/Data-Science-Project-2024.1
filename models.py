@@ -49,6 +49,9 @@ class LaptopPredictionModel:
         model.add(Input(shape=(len(self.columns),)))  # Use the number of columns for input shape
         model.add(Dense(128, activation='relu'))  # Hidden layer
         model.add(Dense(64, activation='relu'))  # Another hidden layer
+        model.add(Dense(32, activation='relu'))
+        model.add(Dense(16, activation='relu'))
+        model.add(Dense(8, activation='relu'))
         model.add(Dense(1))  # Output layer for regression
         model.compile(optimizer=Adam(learning_rate=0.001), loss='mse', metrics=['mae'])
         return model
@@ -66,7 +69,7 @@ class LaptopPredictionModel:
             history = self.model.fit(
                 X_train, y_train,
                 validation_split=0.2,  # Use 20% of the data for validation
-                epochs=100,
+                epochs=200,
                 batch_size=32,
                 callbacks=[early_stop],
                 verbose=1
